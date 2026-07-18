@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 
 import { FocusCards } from "@/components/ui/focus-cards";
 
-export const StarsBackgroundDemo = () => {
+const StarsBackgroundDemo = () => {
   return (
     <StarsBackground
       starColor="#FFF"
