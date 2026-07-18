@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { Suspense, useState, useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import ChatPanel from "@/components/ChatPanel";
 import WidgetRenderer from "@/components/WidgetRenderer";
 import { askTutorStream } from "@/lib/api";
@@ -10,11 +11,22 @@ import { GLOW_COLOR } from "@/types/widget";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
 
-export default function CanvasPage() {
+function CanvasContent() {
+  const searchParams = useSearchParams();
+  const q = searchParams.get("q");
+
   const [spec, setSpec] = useState<WidgetSpec | null>(null);
   const [status, setStatus] = useState<string>("Waiting for question...");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const hasAskedRef = useRef(false);
+
+  useEffect(() => {
+    if (q && !hasAskedRef.current) {
+      hasAskedRef.current = true;
+      handleAsk(q);
+    }
+  }, [q]);
   
   const handleAsk = async (question: string) => {
     setLoading(true);
@@ -125,5 +137,13 @@ export default function CanvasPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function CanvasPage() {
+  return (
+    <Suspense fallback={<div className="flex h-screen items-center justify-center bg-canvas text-white">Loading Canvas...</div>}>
+      <CanvasContent />
+    </Suspense>
   );
 }

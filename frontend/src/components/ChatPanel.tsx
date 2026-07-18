@@ -17,10 +17,12 @@ const SUGGESTIONS = [
 
 export default function ChatPanel({ onAsk, loading, error, status }: ChatPanelProps) {
   const [input, setInput] = useState("");
+  const [lastQuestion, setLastQuestion] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || loading) return;
+    setLastQuestion(input);
     onAsk(input);
     setInput("");
   };
@@ -68,7 +70,9 @@ export default function ChatPanel({ onAsk, loading, error, status }: ChatPanelPr
           <div className="p-4 rounded-xl bg-red-950/30 border border-red-900/50 text-red-200">
             <p className="text-sm mb-3">{error}</p>
             <button 
-              onClick={() => onAsk(input)}
+              onClick={() => {
+                if (lastQuestion) onAsk(lastQuestion);
+              }}
               className="flex items-center gap-2 text-xs font-medium bg-red-900/40 hover:bg-red-900/60 px-3 py-1.5 rounded border border-red-800 transition-colors"
             >
               <RefreshCcw className="w-3 h-3" /> Retry
