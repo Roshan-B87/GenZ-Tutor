@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --canvas: #0A0B10;
+  --canvas-panel: #12141C;
+  --canvas-border: #20232E;
+  --ink: #E8EAF0;
+  --ink-muted: #8891A3;
+  --glow-graph: #22D3EE;
+  --glow-physics: #FFB020;
+  --glow-flow: #4AFFA0;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--canvas);
+  color: var(--ink);
+}
+
+* { box-sizing: border-box; }
+
+/* Premium scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--canvas-border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-muted);
+}
+
+/* Range input styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #20232e;
+  border-radius: 999px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: currentColor;
+  cursor: pointer;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(18, 20, 28, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(32, 35, 46, 0.5);
+}
+
+.glass-strong {
+  background: rgba(18, 20, 28, 0.85);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(32, 35, 46, 0.7);
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #22D3EE, #B388FF, #4AFFA0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated gradient */
+.gradient-animated {
+  background: linear-gradient(270deg, #22D3EE, #B388FF, #4AFFA0, #FFB020);
+  background-size: 800% 800%;
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Dot grid background */
+.dot-grid {
+  background-image: radial-gradient(#20232E 1px, transparent 1px);
+  background-size: 24px 24px;
+}
